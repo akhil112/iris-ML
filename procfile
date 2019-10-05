@@ -1,2 +1,14 @@
 
 web: gunicorn flask-ML:app
+
+
+payload = request.json['data']
+    values = [int(i) for i in payload.split(',')]
+    final_features = [np.array(int_features)]
+    prediction = model.predict(final_features)
+    flower = {0:'setosa',1:'versicolor',2:'virginica'}
+    result = flower.get(prediction[0])
+
+    ret = '{"prediction":' + str(prediction) + '}'
+    
+    return ret
